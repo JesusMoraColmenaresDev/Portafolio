@@ -22,14 +22,14 @@ export const HoverEffect = ({
     return (
         <div
             className={cn(
-                "flex gap-4 justify-center items-center",
+                "flex flex-col md:flex-row gap-4 justify-center items-center",
                 className
             )}
         >
             {items.map((item, idx) => (
                 <div
                     key={item.link || idx}
-                    className="relative group block p-2 h-full w-full"
+                    className="relative group block p-2 h-full w-fit"
                     onMouseEnter={() => setHoveredIndex(idx)}
                     onMouseLeave={() => setHoveredIndex(null)}
                 >

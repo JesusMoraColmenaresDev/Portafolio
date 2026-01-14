@@ -8,7 +8,7 @@ type ItemIconProps = {
 
 function ItemIcon({ icon, text, link, className } : ItemIconProps) {
 const content = (
-    <span className={`flex items-center gap-2 rounded-2xl border-2 border-line w-fit p-2 text-body  ${className || ""}`}>
+    <span className={`flex items-center gap-2 text-2xl rounded-2xl border-2 border-line w-fit p-2 text-body  ${className || ""}`}>
       {icon}
       {text && <span>{text}</span>}
     </span>
