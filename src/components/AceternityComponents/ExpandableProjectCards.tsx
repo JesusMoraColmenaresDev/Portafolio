@@ -1,0 +1,109 @@
+import React, { useEffect, useId, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useOutsideClick } from "../../hooks/use-outside-click";
+import type { Project } from "../../types/ProjectType";
+import ItemIcon from "../ItemIcon";
+
+export function ExpandableProjectCards({ projects }: { projects: Project[] }) {
+    const [active, setActive] = useState<Project | null>(null);
+    const ref = useRef<HTMLDivElement>(null);
+    const id = useId();
+
+    useEffect(() => {
+        function onKeyDown(event: KeyboardEvent) {
+            if (event.key === "Escape") setActive(null);
+        }
+        if (active) document.body.style.overflow = "hidden";
+        else document.body.style.overflow = "auto";
+        window.addEventListener("keydown", onKeyDown);
+        return () => window.removeEventListener("keydown", onKeyDown);
+    }, [active]);
+
+    useOutsideClick(ref, () => setActive(null));
+
+    return (
+        <>
+            <AnimatePresence>
+                {active && (
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 bg-black/20 h-full w-full z-10"
+                    />
+                )}
+            </AnimatePresence>
+            <AnimatePresence>
+                {active ? (
+                    <div className="fixed inset-0 grid place-items-center z-100 p-4">
+                        <motion.div
+                            layoutId={`card-${active.title}-${id}`}
+                            ref={ref}
+                            className="w-full max-w-150 h-full md:h-fit md:max-h-[90%] flex flex-col overflow-auto bg-card sm:rounded-3xl "
+                        >
+                            <motion.div layoutId={`image-${active.title}-${id}`}>
+                                <img
+                                    width={400}
+                                    height={250}
+                                    src={active.images[0]} // Solo la primera imagen extra
+                                    alt={active.title}
+                                    className="w-full h-80 object-cover object-top"
+                                />
+                            </motion.div>
+                            <div className="flex flex-col gap-2 p-4 items-center">
+                                <motion.h3 layoutId={`title-${active.title}-${id}`} className="font-bold text-title text-2xl text-center">
+                                    {active.title}
+                                </motion.h3>
+                                <motion.p layoutId={`description-${active.description}-${id}`} className="text-body">
+                                    {active.description}
+                                </motion.p>
+                                {active.features && (
+                                    <ul className="list-disc pl-5 w-full text-body">
+                                        {active.features.map((feature, idx) => (
+                                            <li key={idx}>{feature}</li>
+                                        ))}
+                                    </ul>
+                                )}
+                                <div className="flex flex-wrap gap-2 mt-2">
+                                    {active.technologies.map((tech, idx) => (
+                                        <ItemIcon key={tech.text || idx} {...tech} />
+                                    ))}
+                                </div>
+                                <div className="flex gap-4 mt-4">
+                                    {active.repo && (
+                                        <a href={active.repo} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+                                            Repositorio
+                                        </a>
+                                    )}
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                ) : null}
+            </AnimatePresence>
+            <ul className="flex mx-auto w-full gap-8">
+                {projects.map((project, index) => (
+                    <motion.div
+                        layoutId={`card-${project.title}-${id}`}
+                        key={`card-${project.title}-${id}`}
+                        onClick={() => setActive(project)}
+                        className="p-4 flex justify-between items-center hover:bg-card rounded-xl cursor-pointer border border-line"
+                    >
+                        <div className="flex gap-4 flex-col md:flex-row">
+                            <div>
+                                <motion.h3 layoutId={`title-${project.title}-${id}`} className="font-medium text-neutral-800 dark:text-neutral-200 text-center md:text-left">
+                                    {project.title}
+                                </motion.h3>
+                                <div className="flex flex-wrap gap-2 mt-2 justify-center md:justify-start">
+                                    {project.technologies.map((tech, idx) => (
+                                        <ItemIcon key={tech.text || idx} {...tech} />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
+                    </motion.div>
+                ))}
+            </ul>
+        </>
+    );
+}

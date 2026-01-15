@@ -1,10 +1,20 @@
-import { FaCheck, FaCheckCircle, FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaCheck, FaCheckCircle, FaGithub, FaGraduationCap, FaLinkedin, FaNodeJs, FaReact } from "react-icons/fa";
 import { HoverEffect } from "./components/AceternityComponents/HoverEffect";// Asumiendo que lo tienes aquí
 import { TbFileCv } from "react-icons/tb";
 import { TypewriterEffect } from "./components/AceternityComponents/TypewriterEffect";
 import { useRef, useState } from "react";
 import { MdContentCopy } from "react-icons/md";
-import { motion } from "motion/react";
+import { motion, useInView } from "motion/react";
+import EducationCard from "./components/EducationCard";
+import { SiTypescript, SiUdemy } from "react-icons/si";
+import AnimatedSection from "./components/AnimatedSection";
+import ItemIcon from "./components/ItemIcon";
+import { RiNextjsFill, RiTailwindCssFill } from "react-icons/ri";
+import { DiRuby } from "react-icons/di";
+import { IoLogoJavascript } from "react-icons/io";
+import { FocusCards } from "./components/AceternityComponents/FocusCards";
+import type { Project } from "./types/ProjectType";
+import { ExpandableProjectCards } from "./components/AceternityComponents/ExpandableProjectCards";
 
 const itemIcons = [
   {
@@ -25,15 +35,82 @@ const itemIcons = [
 ];
 
 const name = [
-  { text: "Jesus" , className: "text-title" },
-  { text: "Miguel" , className: "text-title" },
-  { text: "Mora" , className: "text-title" },
-  { text: "Colmenares" , className: "text-title" },
+  { text: "Jesus", className: "text-title" },
+  { text: "Miguel", className: "text-title" },
+  { text: "Mora", className: "text-title" },
+  { text: "Colmenares", className: "text-title" },
 ];
 
 const role = [
-  { text: "Desarrollador" , className: "text-body" },
-  { text: "Fullstack" , className: "text-body" },
+  { text: "Desarrollador", className: "text-body" },
+  { text: "Fullstack", className: "text-body" },
+];
+
+const stackIcons = [
+  { icon: <FaReact className="text-6xl" />, text: "React" },
+  { icon: <RiNextjsFill className="text-6xl" />, text: "Next.js" },
+  { icon: <FaNodeJs className="text-6xl" />, text: "Node.js" },
+  { icon: <DiRuby className="text-6xl" />, text: "Ruby" },
+  { icon: <IoLogoJavascript className="text-6xl" />, text: "JavaScript" },
+  { icon: <SiTypescript className="text-6xl" />, text: "TypeScript" },
+  { icon: <RiTailwindCssFill className="text-6xl" />, text: "TailwindCSS" },
+];
+
+export const projects: Project[] = [
+  {
+    title: "Fakebook - clon de facebook",
+    description: `
+    Este proyecto es una aplicación que simula las funcionalidades principales de una red social similar a Facebook`,
+    features: [
+      "Permite a los usuarios registrarse, iniciar sesión y cerrar sesión.",
+      "Los usuarios pueden ver su perfil, incluyendo información personal, publicaciones y amigos.",
+      "Los usuarios pueden crear, editar, eliminar y comentar en publicaciones.",
+      "Sistema para enviar, mostrar y listar comentarios en publicaciones.",
+      "Funcionalidad para enviar, aceptar, cancelar y confirmar solicitudes de amistad.",
+      "Chat en tiempo real entre usuarios, con historial de conversaciones y envío de mensajes instantáneos.",
+      "Los usuarios reciben notificaciones sobre solicitudes de amistad, mensajes y comentarios.",
+      "Los usuarios pueden compartir publicaciones de otros."
+    ],
+    technologies: [
+      { icon: <DiRuby />, text: "Ruby" },
+      { icon: <FaReact />, text: "React" },
+      { icon: <SiTypescript />, text: "TypeScript" },
+    ],
+    imageThumb: "./vite.svg",
+    images: [
+      "./vite.svg",
+      "./vite.svg",
+      "./vite.svg",
+    ],
+    repo: "https://github.com/JesusMoraColmenaresDev/Fakebook---Frontend",
+  },
+  {
+    title: "Stockware - gestión de inventario",
+    description: `Este proyecto es una aplicación web para la gestión de inventarios y usuarios en empresas o comercios.`,
+    features: [
+      "Permite a los usuarios registrarse, iniciar sesión y cerrar sesión.",
+      "Los administradores pueden ver, crear, editar y eliminar usuarios, así como cambiar contraseñas y editar perfiles.",
+      "Los usuarios pueden ver y editar su información personal, cambiar su contraseña y eliminar su cuenta.",
+      "Permite crear, editar, eliminar y ver detalles de productos, incluyendo el control de stock y visualización de productos con bajo inventario.",
+      "Permite crear, editar, eliminar y listar categorías para organizar los productos.",
+      "Visualización y gestión de los movimientos de inventario (entradas y salidas de productos).",
+      "Generación y descarga de reportes en PDF sobre movimientos y stock.",
+      "Sistema de notificaciones visuales (toasts) para informar al usuario sobre acciones realizadas o errores.",
+      "Barra lateral, barra de navegación superior y paginación para facilitar la experiencia de usuario."
+    ],
+    technologies: [
+      { icon: <FaReact />, text: "React" },
+      { icon: <DiRuby />, text: "Ruby" },
+      { icon: <SiTypescript />, text: "TypeScript" },
+    ],
+    imageThumb: "./vite.svg",
+    images: [
+      "./vite.svg",
+      "./vite.svg",
+      "./vite.svg",
+    ],
+    repo: "https://github.com/JesusMoraColmenaresDev/Stockware-Frontend",
+  },
 ];
 
 function App() {
@@ -41,7 +118,6 @@ function App() {
   const titleRef = useRef<HTMLParagraphElement>(null);
   const [copyIcon, setCopyIcon] = useState(<MdContentCopy />);
   const [copyEmail, setCopyEmail] = useState(false);
-
 
   const handleCopy = () => {
     if (titleRef.current) {
@@ -52,40 +128,78 @@ function App() {
   };
 
   return (
-    <section className="w-full h-full flex flex-col justify-center items-center gap-16">
+    <main className="flex flex-col justify-center items-center gap-24 p-80">
+      <section className="w-full flex flex-col justify-center items-center gap-8">
+        <AnimatedSection className="flex flex-col justify-center items-center gap-2">
+          <TypewriterEffect words={name} />
+          <TypewriterEffect words={role} className="sm:text-xl md:text-2xl lg:text-3xl " />
+        </AnimatedSection>
 
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="flex flex-col justify-center items-center gap-2"
+        <AnimatedSection delay={0.3}>
+          <HoverEffect items={itemIcons} />
+        </AnimatedSection>
+
+        <AnimatedSection delay={0.6} className="flex justify-center items-center gap-2 w-full">
+          <p className="text-body bg-card text-xl opacity-70 border p-3 border-line rounded-3xl" ref={titleRef}>
+            jesusmiguelmora.dev@gmail.com
+          </p>
+          <button
+            onClick={handleCopy}
+            title={copyEmail ? "Correo copiado" : "Copiar correo"}
+            className="cursor-pointer"
+          >
+            <HoverEffect items={[{ icon: copyIcon }]} />
+          </button>
+        </AnimatedSection>
+      </section>
+
+      <section>
+        <AnimatedSection
+          useInViewLogic
+          delay={0.1}
+          duration={0.8}
+          className="flex flex-col items-center gap-8 "
+        >
+          <h2 className="text-4xl font-bold text-title">Educación</h2>
+          <div className="w-full flex gap-6 justify-center items-stretch">
+            <EducationCard
+              icon={<FaGraduationCap className="text-6xl w-full" />}
+              title="Ingenieria Informatica"
+              institution="Universidad Nacional Experimental del Tachira (UNET)"
+              period="2022 - Actualidad"
+            />
+            <EducationCard
+              icon={<SiUdemy className="text-6xl w-full" />}
+              title="React y TypeScript - La Guía Completa Creando +10 Proyectos"
+              institution="Udemy - Juan Pablo De la Torre Valdez"
+              period="2025"
+            />
+          </div>
+        </AnimatedSection>
+      </section>
+
+      <section>
+        <AnimatedSection
+          useInViewLogic
+          delay={0.1}
+          duration={0.8}
+          className="flex flex-col items-center gap-8 "
+        >
+          <h2 className="text-4xl font-bold text-title">Stack tecnologico</h2>
+          <FocusCards cards={stackIcons} />
+        </AnimatedSection>
+      </section>
+
+      <AnimatedSection
+        useInViewLogic
+        delay={0.1}
+        duration={0.8}
+        className="flex flex-col items-center gap-8"
       >
-        <TypewriterEffect words={name}/>
-        <TypewriterEffect words={role} className="sm:text-xl md:text-2xl lg:text-3xl "></TypewriterEffect>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-      >
-        <HoverEffect items={itemIcons} />
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-        className="flex justify-center items-center gap-2 w-full"
-      >
-        <p className="text-body bg-card text-xl opacity-70 border p-3 border-line rounded-3xl" ref={titleRef}>jesusmiguelmora.dev@gmail.com</p>
-        <button onClick={handleCopy} title={copyEmail ? "Correo copiado" : "Copiar correo"} className="cursor-pointer">{<HoverEffect items={[{ icon: copyIcon }]}></HoverEffect>}</button>
-      </motion.div>
-
-    </section>
+        <h2 className="text-4xl font-bold text-title">Proyectos</h2>
+        <ExpandableProjectCards projects={projects} />
+      </AnimatedSection>
+    </main>
   );
 }
 

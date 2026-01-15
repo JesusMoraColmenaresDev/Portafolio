@@ -2,13 +2,7 @@ import { cn } from "../../lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import ItemIcon from "../ItemIcon";
-
-type ItemIconProps = {
-    icon: React.ReactNode;
-    text?: string;
-    link?: string;
-    className?: string;
-};
+import type { ItemIconProps } from "../../types/ItemIconType";
 
 export const HoverEffect = ({
     items,

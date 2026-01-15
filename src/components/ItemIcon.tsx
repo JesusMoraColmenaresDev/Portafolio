@@ -1,10 +1,4 @@
-type ItemIconProps = {
-    icon: React.ReactNode;
-    text?: string;
-    link?: string;
-    className?: string;
-}
-
+import type { ItemIconProps } from "../types/ItemIconType";
 
 function ItemIcon({ icon, text, link, className } : ItemIconProps) {
 const content = (
