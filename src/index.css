@@ -34,3 +34,12 @@ body {
   height: 100%;
   width: 100%;
 }
+
+/* Oculta el scrollbar pero mantiene el scroll funcional */
+.hide-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE y Edge */
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari y Opera */
+}
