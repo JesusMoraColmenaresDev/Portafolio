@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useOutsideClick } from "../../hooks/use-outside-click";
 import type { Project } from "../../types/ProjectType";
@@ -94,7 +94,7 @@ export function ExpandableProjectCards({ projects }: { projects: Project[] }) {
                 ) : null}
             </AnimatePresence>
             <div className="flex max-[1400px]:flex-col w-full gap-8">
-                {projects.map((project, index) => (
+                {projects.map((project) => (
                     <motion.div
                         layoutId={`card-${project.title}-${id}`}
                         key={`card-${project.title}-${id}`}
