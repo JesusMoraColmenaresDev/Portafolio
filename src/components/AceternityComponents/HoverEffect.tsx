@@ -45,7 +45,7 @@ export const HoverEffect = ({
                         )}
                     </AnimatePresence>
                     {/* Aquí renderiza el contenido visual */}
-                    <ItemIcon {...item} className="relative z-50 bg-main" />
+                    <ItemIcon {...item} className="relative z-50 bg-main max-md:text-[20px]" />
                 </div>
             ))}
         </div>

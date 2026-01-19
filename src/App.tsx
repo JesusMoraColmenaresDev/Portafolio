@@ -58,7 +58,7 @@ const stackIcons = [
 
 export const projects: Project[] = [
   {
-    title: "Fakebook - clon de facebook",
+    title: "Fakebook - Clon de facebook",
     description: `
     Este proyecto es una aplicación que simula las funcionalidades principales de una red social similar a Facebook`,
     features: [
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     repo: "https://github.com/JesusMoraColmenaresDev/Fakebook---Frontend",
   },
   {
-    title: "Stockware - gestión de inventario",
+    title: "Stockware - Gestión de inventario",
     description: `Este proyecto es una aplicación web para la gestión de inventarios y usuarios en empresas o comercios.`,
     features: [
       "Permite a los usuarios registrarse, iniciar sesión y cerrar sesión.",
@@ -146,7 +146,7 @@ export const projects: Project[] = [
     repo: "https://github.com/JesusMoraColmenaresDev/Stockware-Frontend",
   },
   {
-    title: "Prospera Landing - Plataforma de servicios financieros",
+    title: "Prospera - Landing Page",
     description: `Este proyecto es una aplicación web orientada a la presentación y gestión de servicios financieros para clientes y empresas.`,
     features: [
       "Permite a los usuarios consultar información sobre la empresa, sus servicios y ventajas competitivas.",
@@ -159,9 +159,8 @@ export const projects: Project[] = [
     ],
     technologies: [
       { icon: <RiNextjsFill />, text: "Next.js" },
-      { icon: <SiTypescript />, text: "TypeScript" },
       { icon: <FaReact />, text: "React" },
-      { icon: <SiPrisma />, text: "Prisma" }
+      { icon: <SiTypescript />, text: "TypeScript" }
     ],
     imageThumb: "./prospera/prospera1.png",
     images: [
@@ -192,21 +191,21 @@ function App() {
   };
 
   return (
-    <main className="flex flex-col justify-center items-center gap-24 p-80">
-      <section className="w-full flex flex-col justify-center items-center gap-8">
+    <main className="flex flex-col justify-center p-8 items-center gap-26 md:pb-70">
+      <section className="w-full h-screen flex flex-col justify-center items-center gap-8 ">
         
         <AnimatedSection className="flex flex-col justify-center items-center gap-2">
-          <img src="./prospera_Images/Captura de pantalla 2026-01-16 112601.png" alt="sadaaaaaaaaaaaaaaaaaa" />
-          <TypewriterEffect words={name} />
-          <TypewriterEffect words={role} className="sm:text-xl md:text-2xl lg:text-3xl " />
+          
+          <p className="max-md:text-[24px] md:text-4xl font-bold text-title text-center">Jesus Miguel Mora Colmenares</p>
+          <TypewriterEffect words={role} className=" max-md:text-[20px] md:text-3xl " />
         </AnimatedSection>
 
         <AnimatedSection delay={0.3}>
           <HoverEffect items={itemIcons} />
         </AnimatedSection>
 
-        <AnimatedSection delay={0.6} className="flex justify-center items-center gap-2 w-full">
-          <p className="text-body bg-card text-xl opacity-70 border p-3 border-line rounded-3xl" ref={titleRef}>
+        <AnimatedSection delay={0.6} className="flex justify-center items-center  w-full">
+          <p className="text-body bg-card text-xl max-[500px]:text-[16px] opacity-70 border p-3 border-line rounded-3xl" ref={titleRef}>
             jesusmiguelmora.dev@gmail.com
           </p>
           <button
@@ -227,15 +226,15 @@ function App() {
           className="flex flex-col items-center gap-8 "
         >
           <h2 className="text-4xl font-bold text-title">Educación</h2>
-          <div className="w-full flex gap-6 justify-center items-stretch">
+          <div className="w-full flex max-[1100px]:flex-col gap-6 justify-center items-stretch">
             <EducationCard
-              icon={<FaGraduationCap className="text-6xl w-full" />}
+              icon={<FaGraduationCap className="text-6xl " />}
               title="Ingenieria Informatica"
               institution="Universidad Nacional Experimental del Tachira (UNET)"
               period="2022 - Actualidad"
             />
             <EducationCard
-              icon={<SiUdemy className="text-6xl w-full" />}
+              icon={<SiUdemy className="text-6xl " />}
               title="React y TypeScript - La Guía Completa Creando +10 Proyectos"
               institution="Udemy - Juan Pablo De la Torre Valdez"
               period="2025"
@@ -251,7 +250,7 @@ function App() {
           duration={0.8}
           className="flex flex-col items-center gap-8 "
         >
-          <h2 className="text-4xl font-bold text-title">Stack tecnologico</h2>
+          <h2 className="text-4xl font-bold text-title text-center">Stack tecnológico</h2>
           <FocusCards cards={stackIcons} />
         </AnimatedSection>
       </section>

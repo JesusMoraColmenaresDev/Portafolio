@@ -19,7 +19,7 @@ export function Carousel({ images }: CarouselProps) {
 
   return (
     <div
-      className="flex flex-col gap-4 m-8"
+      className="flex flex-col gap-4 max-md:overflow-hidden "
       aria-labelledby={`carousel-heading-${id}`}
     >
       <ul
@@ -32,10 +32,10 @@ export function Carousel({ images }: CarouselProps) {
         {images.map((src, index) => (
           <li
             key={index}
-            className="flex flex-1 items-center justify-center relative w-225 "
+            className="flex flex-1 items-center justify-center relative "
           >
             <img
-              className=" w-225  object-contain rounded-2xl shadow-lg"
+              className="object-contain rounded-2xl shadow-lg " 
               src={src}
               alt={`slide-${index}`}
               loading="eager"
