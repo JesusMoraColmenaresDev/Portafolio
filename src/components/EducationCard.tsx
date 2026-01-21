@@ -7,7 +7,7 @@ type EducationCardProps = {
 
 function EducationCard({ icon, title, institution, period }: EducationCardProps) {
   return (
-    <div className="flex flex-col gap-6 p-4 text-body border rounded-sm sm:w-125 text-center justify-between">
+    <div className="flex flex-col gap-6 p-4 text-body border rounded-xl sm:w-125 text-center justify-between">
       <div className="flex flex-col gap-4 items-center">
         {icon}
         <h3 className="text-title font-bold text-2xl">{title}</h3>

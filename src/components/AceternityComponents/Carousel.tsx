@@ -19,7 +19,7 @@ export function Carousel({ images }: CarouselProps) {
 
   return (
     <div
-      className="flex flex-col gap-4 max-md:overflow-hidden "
+      className="flex flex-col pb-8 gap-4 overflow-hidden w-170 max-md:w-80"
       aria-labelledby={`carousel-heading-${id}`}
     >
       <ul

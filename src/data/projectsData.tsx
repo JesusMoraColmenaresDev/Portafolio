@@ -120,6 +120,6 @@ export const projects: Project[] = [
       "./prospera/prospera6.png",
       "./prospera/prospera7.png"
     ],
-    repo: "https://github.com/JesusMoraColmenaresDev/Prospera-Landing", // Agrega el enlace al repositorio si existe
+    repo: "https://github.com/JesusMoraColmenaresDev/Prospera-Landing",
   }
 ];

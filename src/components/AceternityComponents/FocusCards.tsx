@@ -43,7 +43,7 @@ export function FocusCards({ cards }: { cards: ItemIconProps[] }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <div className="flex flex-wrap gap-6 justify-center w-full">
+    <div className="flex flex-wrap gap-6 justify-center w-115 max-[1400px]:w-75">
       {cards.map((card, index) => (
         <Card
           key={card.text || index}
